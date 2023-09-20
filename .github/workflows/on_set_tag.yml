@@ -18,6 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: git config --global url.https://${ACCESS_USER}:${ACCESS_TOKEN}@github.com/.insteadOf https://github.com
+      - name: Create new tag
+        run: git tag v${IMAGE_TAG}
       - name: echo env test
         run: |
           echo ${IMAGE_NAME}
