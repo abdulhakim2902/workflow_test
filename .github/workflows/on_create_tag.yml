@@ -23,5 +23,5 @@ jobs:
       - name: echo env test
         run: |
           echo ${IMAGE_NAME}
-          echo v${IMAGE_TAG}
+          echo ${{ github.ref_name }}
           echo ${IMAGE_NAME}:${IMAGE_TAG}
