@@ -20,6 +20,8 @@ jobs:
       - run: git config --global url.https://${ACCESS_USER}:${ACCESS_TOKEN}@github.com/.insteadOf https://github.com
       - name: Create new tag
         run: git tag v${{ github.event.inputs.tag }}
+      - name: Push new tag
+        run: git push origin v${{ github.event.inputs.tag }}
       - name: echo env test
         run: |
           echo ${IMAGE_NAME}
