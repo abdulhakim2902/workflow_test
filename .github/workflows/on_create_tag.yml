@@ -16,7 +16,7 @@ jobs:
       GIT_TERMINAL_PROMPT: 1
     
     steps:
-      - if: ${{ github.ref_type == 'tag' }}   
+      - if: ${{ github.ref_type == 'tag' && startsWith(github.ref_name, 'v') }}   
         uses: bhowell2/github-substring-action@1.0.2
         id: tag
         with:
