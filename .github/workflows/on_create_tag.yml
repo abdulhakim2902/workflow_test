@@ -10,10 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: ghcr.io/undercurrent-technologies/matching-engine
-      IMAGE_TAG: ${{ github.event.inputs.tag }}
+      IMAGE_TAG: ${{ github.ref_name }}
       GIT_TERMINAL_PROMPT: 1
     
     steps:
+      - name: substring-action      
+        uses: bhowell2/github-substring-action@1.0.2
+        id: tag
+        with:
+          value: ${IMAGE_TAG}
+          index_of_str: v
+            
       - uses: actions/checkout@v3
       - run: git config --global url.https://${ACCESS_USER}:${ACCESS_TOKEN}@github.com/.insteadOf https://github.com
       # - name: Create new tag
@@ -22,6 +29,5 @@ jobs:
       #   run: git push origin v${{ github.event.inputs.tag }}
       - name: echo env test
         run: |
-          echo ${IMAGE_NAME}
-          echo ${{ github.ref_name }}
-          echo ${IMAGE_NAME}:${{ github.ref_name }}
+          echo ${IMAGE_NAME}:${IMAGE_TAG}
+          echo ${steps.tag.outputs.substring}
