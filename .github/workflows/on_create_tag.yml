@@ -30,4 +30,4 @@ jobs:
       - name: echo env test
         run: |
           echo ${IMAGE_NAME}:${IMAGE_TAG}
-          echo ${steps.tag.outputs.substring}
+          echo ${{ steps.tag.outputs.substring }}
