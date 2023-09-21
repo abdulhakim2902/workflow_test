@@ -16,7 +16,7 @@ jobs:
       GIT_TERMINAL_PROMPT: 1
     
     steps:
-      - name: substring-action      
+      - if: ${{ github.ref_type == 'tag' }}   
         uses: bhowell2/github-substring-action@1.0.2
         id: tag
         with:
@@ -33,4 +33,4 @@ jobs:
         run: |
           echo ${{ github.ref_type }}
           echo ${IMAGE_NAME}:${{ steps.tag.outputs.substring }}
-          echo ${{ steps.tag.outputs.substring }}
+      # echo ${{ steps.tag.outputs.substring }}
