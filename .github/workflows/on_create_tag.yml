@@ -29,5 +29,5 @@ jobs:
       #   run: git push origin v${{ github.event.inputs.tag }}
       - name: echo env test
         run: |
-          echo ${IMAGE_NAME}:${IMAGE_TAG}
+          echo ${IMAGE_NAME}:${{ steps.tag.outputs.substring }}
           echo ${{ steps.tag.outputs.substring }}
