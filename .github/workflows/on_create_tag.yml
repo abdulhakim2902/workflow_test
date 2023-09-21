@@ -16,21 +16,18 @@ jobs:
       GIT_TERMINAL_PROMPT: 1
     
     steps:
-      - if: ${{ github.ref_type == 'tag' && startsWith(github.ref_name, 'v') }}   
+      - if: ${{ github.ref_type == 'tag' }}   
         uses: bhowell2/github-substring-action@1.0.2
         id: tag
         with:
           value: ${{ github.ref_name }}
           index_of_str: v
-            
-      - uses: actions/checkout@v3
-      - run: git config --global url.https://${ACCESS_USER}:${ACCESS_TOKEN}@github.com/.insteadOf https://github.com
-      # - name: Create new tag
-      #   run: git tag v${{ github.event.inputs.tag }}
-      # - name: Push new tag
-      #   run: git push origin v${{ github.event.inputs.tag }}
+
       - name: echo env test
         run: |
-          echo ${{ github.ref_type }}
-          echo ${IMAGE_NAME}:${{ steps.tag.outputs.substring }}
-      # echo ${{ steps.tag.outputs.substring }}
+          if [ ${{ github.ref_type }} == 'branch' && ${{ github.ref_name }} == 'main' ]; then
+            echo "Hello main"
+          else
+            echo ${{ steps.tag.outputs.substring }}
+            echo "Hello tag"
+          fi
